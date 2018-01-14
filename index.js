@@ -2,7 +2,15 @@
 
 const Hapi = require('hapi');
 
-const server = new Hapi.Server();
+const server = new Hapi.Server({
+    cache: [{
+      name: 'redis',
+      engine: require('catbox-redis'),
+      host: 'pizza-custer-001.hxuxvn.0001.aps1.cache.amazonaws.com',
+      partition: 'cache'
+    }]
+});
+
 server.connection({ port: process.env.PORT || 3000 });
 
 function startServer() {
